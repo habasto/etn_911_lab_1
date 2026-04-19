@@ -31,7 +31,7 @@ En Linux:
 gcc servidor.c -o servidor
 ```
 
-# ▶️ 3. Ejecutar
+# 3. Ejecutar
 
 ```console
 ./servidor
@@ -43,7 +43,7 @@ Verás:
 Servidor escuchando en puerto 8080\...
 ```
 
-# 🔌 4. Probar el servidor
+# 4. Probar el servidor
 
 Desde otra terminal:
 
@@ -63,15 +63,14 @@ Deberías recibir:
 Hola cliente, soy el servidor
 ```
 
-# 🔬 5. Explicación paso a paso
+# 5. Explicación paso a paso
 
-## 🔹 1. *socket()*
+## 1. *socket()*
 
-<div>
+```
+socket(AF_INET, SOCK_STREAM, 0);
+```
 
-[]{#anchor-6}socket(AF_INET, SOCK_STREAM, 0);
-
-</div>
 
 -   *AF_INET* → IPv4
 -   *SOCK_STREAM* → TCP
