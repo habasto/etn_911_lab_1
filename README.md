@@ -21,7 +21,7 @@ Este servidor:
 -   Envía un mensaje
 -   Cierra
 
-
+[servidor.c]
 
 # ⚙️ 2. Compilar
 
