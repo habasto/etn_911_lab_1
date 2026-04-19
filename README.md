@@ -76,15 +76,13 @@ socket(AF_INET, SOCK_STREAM, 0);
 -   *SOCK_STREAM* → TCP
 -   Devuelve un descriptor (como un archivo)
 
-👉 Aquí nace el "endpoint" de red.
+Aquí nace el "endpoint" de red.
 
-## 🔹 2. *sockaddr_in*
+## 2. *sockaddr_in*
 
-<div>
-
-[]{#anchor-7}struct sockaddr_in server_addr;
-
-</div>
+``` c
+struct sockaddr_in server_addr;
+```
 
 Define:
 
@@ -92,53 +90,43 @@ Define:
 -   Puerto
 -   Tipo de red
 
-<div>
+``` c
+server_addr.sin_addr.s_addr = INADDR_ANY;
+```
 
-[]{#anchor-8}server_addr.sin_addr.s_addr = INADDR_ANY;
+Escucha en todas las interfaces (localhost, IP privada, etc.)
 
-</div>
+``` c
+server_addr.sin_port = htons(PORT);
+```
 
-👉 Escucha en todas las interfaces (localhost, IP privada, etc.)
+Convierte a formato de red (big endian)
 
-<div>
+## 3. *bind()*
 
-[]{#anchor-9}server_addr.sin_port = htons(PORT);
+``` c
+bind(server_fd, \...);
+```
 
-</div>
-
-👉 Convierte a formato de red (big endian)
-
-## 🔹 3. *bind()*
-
-<div>
-
-[]{#anchor-10}bind(server_fd, \...);
-
-</div>
-
-👉 Une el socket a un puerto del sistema operativo.
+Une el socket a un puerto del sistema operativo.
 
 Sin esto, el SO no sabe dónde escuchar.
 
-## 🔹 4. *listen()*
+## 4. *listen()*
 
-<div>
+``` c
+listen(server_fd, 3);
+```
 
-[]{#anchor-11}listen(server_fd, 3);
-
-</div>
-
-👉 Pone el socket en modo servidor.
+Pone el socket en modo servidor.
 
 -   *3* = tamaño de la cola de conexiones pendientes
 
-## 🔹 5. *accept()*
+## 5. *accept()*
 
-<div>
-
-[]{#anchor-12}client_socket = accept(server_fd, NULL, NULL);
-
-</div>
+``` c
+client_socket = accept(server_fd, NULL, NULL);
+```
 
 👉 Aquí pasa algo clave:
 
@@ -149,31 +137,27 @@ Sin esto, el SO no sabe dónde escuchar.
     -   crea un NUEVO socket (*client_socket*)
     -   el original sigue escuchando
 
-## 🔹 6. *send()*
+## 6. *send()*
 
-<div>
+``` c
+send(client_socket, message, strlen(message), 0);
+```
 
-[]{#anchor-13}send(client_socket, message, strlen(message), 0);
-
-</div>
-
-👉 Envía datos al cliente.
+Envía datos al cliente.
 
 Es como escribir en un archivo, pero hacia la red.
 
-## 🔹 7. *close()*
+## 7. *close()*
 
-<div>
-
-[]{#anchor-14}close(client_socket);
+``` c
+close(client_socket);
 
 close(server_fd);
+```
 
-</div>
+Libera recursos del sistema.
 
-👉 Libera recursos del sistema.
-
-Trábajo práctico:
+# Trábajo práctico:
 
 1.  Cambiar el mensaje
 2.  Explica las estructuras del ejemplo
